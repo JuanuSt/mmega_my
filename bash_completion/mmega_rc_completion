@@ -1,0 +1,19 @@
+# Completion for mmega_update
+#
+# USAGE = mmega_rc <account_name>
+#
+
+db_name="mega_db_test2"
+
+_mmega_rc() 
+{
+    local cur prev
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+    local accounts=$(mysql --login-path=local -sN -e "USE $db_name; SELECT name FROM config")
+            COMPREPLY=( $(compgen -W "${accounts}" -- ${cur}) )
+            return 0
+}
+complete -F _mmega_rc mmega_rc

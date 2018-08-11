@@ -1,0 +1,131 @@
+# Completion for mmega_query
+# 
+#  USAGE = mmega_query.sh config|account|files|change|add|del|search|set_rc|set_db|summary [options by query]
+#
+#            config  <account_name|all> [optional plaintext] [defautl all]
+#            account <account_name|all> [defautl all]
+#            files   <account_name> local|remote|sync|to_down|to_up|link
+#            change  <account_name> name|email|passwd|local_dir|remote_dir <new_parameter>
+#            add     <new_account_name|new_file_config>
+#            del     <account_name>
+#            search  <file_to_search>   [optional account, defautl all]
+#            set_rc  <account_name>
+#            set_db  <database_name>
+#            summary
+
+db_name="mega_db_test2"
+
+_mmega_query()
+{
+    local cur prev prev_2
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    prev_2="${COMP_WORDS[COMP_CWORD-2]}"
+
+    queries="config account files change add del search set_rc set_db summary"
+
+    case "${prev}" in
+       config)
+          if [ $COMP_CWORD -eq 2 ]; then
+             local accounts=$(mysql --login-path=local -sN -e "USE $db_name; SELECT name FROM config")
+             COMPREPLY=( $(compgen -W "${accounts} all" -- ${cur}) )
+          fi
+          return 0
+          ;;
+
+        account)
+          if [ $COMP_CWORD -eq 2 ]; then
+             local accounts=$(mysql --login-path=local -sN -e "USE $db_name; SELECT name FROM config")
+             COMPREPLY=( $(compgen -W "${accounts} all" -- ${cur}) )
+          fi
+          return 0
+          ;;
+
+        files)
+          if [ $COMP_CWORD -eq 2 ]; then
+             local accounts=$(mysql --login-path=local -sN -e "USE $db_name; SELECT name FROM config")
+             COMPREPLY=( $(compgen -W "${accounts}" -- ${cur}) )
+          fi
+          return 0
+          ;;
+
+        change)
+          if [ $COMP_CWORD -eq 2 ]; then
+             local accounts=$(mysql --login-path=local -sN -e "USE $db_name; SELECT name FROM config")
+             COMPREPLY=( $(compgen -W "${accounts}" -- ${cur}) )
+          fi
+          return 0
+          ;;
+
+        del)
+          if [ $COMP_CWORD -eq 2 ]; then
+             local accounts=$(mysql --login-path=local -sN -e "USE $db_name; SELECT name FROM config")
+             COMPREPLY=( $(compgen -W "${accounts}" -- ${cur}) )
+          fi
+          return 0
+          ;;
+        set_rc)
+          if [ $COMP_CWORD -eq 2 ]; then
+             local accounts=$(mysql --login-path=local -sN -e "USE $db_name; SELECT name FROM config")
+             COMPREPLY=( $(compgen -W "${accounts}" -- ${cur}) )
+          fi
+          return 0
+          ;;
+
+        set_db)
+          if [ $COMP_CWORD -eq 2 ]; then
+             local databases=$(mysql --login-path=local -sN -e "show databases;" | grep -v "information_schema\|mysql\|performance_schema\|sys")
+             COMPREPLY=( $(compgen -W "${databases}" -- ${cur}) )
+          fi
+          return 0
+          ;;
+
+        *)
+        ;;
+    esac
+
+
+   case "${prev_2}" in
+        config)
+           if [ $COMP_CWORD -eq 3 ]; then
+               COMPREPLY=( $(compgen -W "plaintext" -- ${cur}) )
+           fi
+           return 0
+           ;;
+
+        files)
+           if [ $COMP_CWORD -eq 3 ]; then
+               COMPREPLY=( $(compgen -W "local remote sync to_down to_up link" -- ${cur}) )
+           fi
+           return 0
+           ;;
+
+        change)
+           if [ $COMP_CWORD -eq 3 ]; then
+               COMPREPLY=( $(compgen -W "name email passwd local_dir remote_dir" -- ${cur}) )
+           fi
+           return 0
+           ;;
+
+        search)
+           if [ $COMP_CWORD -eq 3 ]; then
+              local accounts=$(mysql --login-path=local -sN -e "USE $db_name; SELECT name FROM config")
+              COMPREPLY=( $(compgen -W "${accounts}" -- ${cur}) )
+           fi
+           return 0
+           ;;
+
+        *)
+        ;;
+
+   esac
+
+
+
+    COMPREPLY=( $(compgen -W "${queries}" -- ${cur}) )
+    return 0
+}
+complete -F _mmega_query mmega_query  
+
+

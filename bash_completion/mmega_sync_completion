@@ -1,0 +1,32 @@
+# Completion for mmega_sync
+# 
+# USAGE = mmega_sync.sh <account_name|all> up|down|sync [with_local|with_remote]
+#
+
+db_name="mega_db_test2"
+
+_mmega_sync()
+{
+    local cur prev
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+    if [ $COMP_CWORD -eq 1 ]; then
+       local accounts=$(mysql --login-path=local -sN -e "USE $db_name; SELECT name FROM config")
+       COMPREPLY=( $(compgen -W "${accounts} all" -- ${cur}) )
+
+    elif [ $COMP_CWORD -eq 2 ]; then
+         COMPREPLY=( $(compgen -W "up down sync" -- ${cur}) )
+
+    elif [ "$prev" == "sync" ] && [ $COMP_CWORD -eq 3 ];then
+         COMPREPLY=( $(compgen -W "with_local with_remote" -- ${cur}) )
+
+    fi
+
+    return 0
+
+}
+complete -F _mmega_sync mmega_sync  
+
+
