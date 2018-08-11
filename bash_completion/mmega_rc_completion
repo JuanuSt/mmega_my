@@ -3,7 +3,7 @@
 # USAGE = mmega_rc <account_name>
 #
 
-db_name="mega_db_test2"
+db_name=""
 
 _mmega_rc() 
 {

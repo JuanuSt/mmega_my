@@ -13,7 +13,7 @@
 #            set_db  <database_name>
 #            summary
 
-db_name="mega_db_test2"
+db_name=""
 
 _mmega_query()
 {
