@@ -175,7 +175,7 @@ The others scripts never modify files but this script can delete local and remot
 > Observe that **is not a proper synchronization process**, it only detects the files that are different between the local and remote directories (it does not detect the modification's date or the different size between files). Indeed if two copies of the same file are named the different way they will be considerated as two differents files. Perhaps it is more appropriate to call it mmega_copy (as megaus does).
 > When using `megacopy` megatools provides a secutity method to never overwrite files. If there are discrepancies the files are marked with a number (that desings the node) and the word "conflict". You will have to check 'by hand' these descrepancies.
 
-Before starting the synchronization process the script will check that the database is updated (this slows down the process considerably). This is very important since the files are taken from the database to determine which files upload, download or delete, so the state of the database should reflect the actual accounts state.
+Before starting the synchronization process the script will check that the database is updated (this slows down the process considerably). This is very important because the files are taken from the database to determine which files upload, download or delete, so the state of the database should reflect the actual accounts state.
 
 | Option | Description |
 |--|--|
