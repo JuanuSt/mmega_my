@@ -17,6 +17,8 @@ I have rewritten this doc to include the functionalities that I have developed f
 * Some bash specific commands 
 
 ### Install
+Install megatools
+
 Install MySQL
 
 Create a file `.my.cnf` in your home directory with login credentials:
