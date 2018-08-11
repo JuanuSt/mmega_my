@@ -45,9 +45,9 @@ Clone or download this repository (four scripts and one directory with four comp
 
 Edit `mmega_create.sh` and set the credentials for MySQL: **user**, **password for user** and **password for root**. They are needed only during database creation and for granting privileges. The root password is used only once, so you can unset it and MySQL will ask you only once. The user's password is used to grant the access, so it can not be in unset.
 
-Set the **db_nam** that you want. It will be set in all other scripts.
+Set the **db_name** that you want. It will be set in all other scripts.
 
-Set **config_file path**. The path to your config file (see below) 
+Set **config_file** path. The path to your config file (see below) 
 
 ### How it works
 The suite is composed by four scripts:
